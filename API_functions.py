@@ -27,8 +27,7 @@ def find_artists(time_stamp):
 	# api call to get info about posts with tag
 	# returns a list of dictionary objects
 	artist_tagged = client.tagged("artists on tumblr", 
-		before = time_stamp, limit = 50)
-	
+		before = time_stamp, limit = 20)
 	
 	# extract blog name (artist user name) and adds to list
 	for post in artist_tagged:
