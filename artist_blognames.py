@@ -1,5 +1,5 @@
 #-----------------------------------------------------------#
-#			Tumblr artist miner								#
+#			Tumblr Artist Miner								#
 #			Author: Rocio Ng								#
 #			Purpose: Extract artist blog names 				#
 #			from the Tumblr API by scraping posts			#
@@ -12,10 +12,8 @@ from secret import SQL_password
 # import csv
 import pymysql as mdb
 
-print "Making calls to the Twitter API"
+print "Making calls to the Tumblr API"
 print "Starting to collect blog names from posts tagged 'artist on tumblr'"
-
-
 # collecected up to 1433326512
 # 3600s in a hour
 # 86400s in a day
@@ -23,8 +21,12 @@ print "Starting to collect blog names from posts tagged 'artist on tumblr'"
 # 2592000 in 30 days (month)
 
 # allow for calls to api to find artist at multiple time stamps:
-time_stamp = 1433426522 # use latest time stamp
-time_past = time_stamp - (6 * 2592000) # by month
+time_stamp = 1433426522
+time_stamp = 1433814270 # use latest time stamp
+
+time_stamp = time_stamp - (6 * 2592000) # start from 6 months ago
+time_past = time_stamp - (6 * 2592000)
+ # by month
 increment = 3600 # hour
 
 
@@ -47,7 +49,7 @@ while time_stamp > time_past:
 
 			# Exception added so code doesn't break when duplicate is found
 			except:
-				print "Duplicate entry artist %s not added" % blog_name  
+				print "Duplicate entry artist not added" 
 	# Calls to the API can be made at different time points to get more than 20 artist blognames
 	time_stamp -=  increment 
 
@@ -59,7 +61,9 @@ with con:
        print row
 
 
-# print find_artists(time_stamp)
+
+#-------Old code for wrting list of artists to a text file----#
+# artist_list = []
 # while time_stamp > time_past:
 #  	print "Looking for artists posting at %i" % time_stamp
 #  	artist_list.extend(find_artists(time_stamp))
